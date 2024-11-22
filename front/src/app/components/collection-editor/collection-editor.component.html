@@ -1,0 +1,17 @@
+<div class="w-screen, h-screen bg-purple-950 p-2 gap-2 flex flex-col">
+    <div class="w-full h-1/4  flex flex-col justify-around border-2 border-gray-900 bg-purple-900 p-2">
+        <div class="text-4xl text-white text-center">titulo</div>
+        <div class="flex justify-center">
+            <input class="rounded-s-md p-1" type="text" placeholder="Añade una palabra" [(ngModel)]="colectionService.word">
+            <button class="rounded-e-md bg-green-700 text-white text-4xl p-2 px-4 text-center cursor-pointer hover:bg-green-600" (click)="colectionService.add_word()">+</button>
+        </div>
+    </div>
+
+    <div class="w-full h-3/4 bg-purple-900 border-gray-900 border-2 p-2">
+        <div class="flex flex-wrap justify-around gap-2">
+            @for (word of colectionService.colection_beign_modified.word_list; track $index) {
+                <div class="p-2 text-2xl bg-purple-800 border-gray-900 border-2 text-white h-12 hover:bg-red-500" (click)="colectionService.remove_word($index)">{{word}}</div>
+            }
+        </div>
+    </div>
+</div>

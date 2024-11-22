@@ -1,0 +1,12 @@
+<div class="w-[50vw] flex flex-col bg-purple-900 p-4">
+    <div class="text-white text-3xl w-full text-center mb-4">Editar Equipo</div>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Nombre Equipo</mat-label>
+        <input type="text" matInput [(ngModel)]="teamsService.team_beign_modified.name">
+      </mat-form-field>
+
+    <div class="w-full flex justify-around">
+        <button mat-dialog-close class="p-2 bg-red-800 text-white text-2xl rounded-sm" (click)="teamsService.delete_team_beign_modified()">Borrar</button>
+    </div>
+</div>
