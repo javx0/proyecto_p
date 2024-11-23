@@ -7,11 +7,12 @@ import { ModalsService } from '../../services/modals.service';
 import { TeamsService } from '../../services/teams.service';
 import { ColectionService } from '../../services/colection_service/colection.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-game-menu',
   standalone: true,
-  imports: [MatIconModule, CommonModule],
+  imports: [MatIconModule, CommonModule, FormsModule],
   templateUrl: './game-menu.component.html',
   styleUrl: './game-menu.component.css'
 })

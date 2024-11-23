@@ -29,5 +29,18 @@ export class TeamsService {
     this.teams_avaliable.splice(this.id_team_beign_modified, 1)
   }
 
+  get_active_teams(){
+    let team_list:any[] = []
+
+    this.teams_avaliable.forEach(team => {
+      if (team.is_selected){
+        let team_to_add = {"name": "","word_list_active_round": [] ,"time_spent": 0}
+        team_to_add.name = team.name
+        team_list.push(team_to_add)
+      }
+    });
+
+    return team_list
+  }
 
 }

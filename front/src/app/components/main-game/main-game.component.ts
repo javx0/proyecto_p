@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { GameCoreService } from '../../services/game-core.service';
 
 @Component({
   selector: 'app-main-game',
@@ -9,4 +10,5 @@ import { Component } from '@angular/core';
 })
 export class MainGameComponent {
 
+  gameCoreService = inject(GameCoreService)
 }
