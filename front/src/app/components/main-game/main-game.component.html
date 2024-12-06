@@ -1,11 +1,36 @@
-<div class="bg-purple-950 flex-col p-2 h-screen w-screen text-white text-4xl text-center" (click)="gameCoreService.delete_active_word_and_get_next_word()">
-    <div class="h-1/6">
-        {{gameCoreService.time_per_round - gameCoreService.time}}
-    </div>
 
-    <div class="h-5/6 flex flex-col justify-center">
-        <div class="">
-            {{gameCoreService.active_word}}
+@if (gameCoreService.game_state == "rules") {
+    <div class="bg-purple-950 flex flex-col p-2 h-screen w-screen text-white text-4xl text-center justify-center" (mousedown)="onMouseDownRules()" (mouseup)="onMouseUp()" (mouseleave)="onMouseUp()"> 
+        <div>
+            {{gameCoreService.rules[gameCoreService.current_round]}}
         </div>
     </div>
-</div>
+}@else if(gameCoreService.game_state == "teams"){
+    <div class="bg-purple-950 flex flex-col p-2 h-screen w-screen text-white text-4xl text-center justify-center" (mousedown)="onMouseDownTeams()" (mouseup)="onMouseUp()" (mouseleave)="onMouseUp()"> 
+        <div>
+            Es el turno del equipo :
+            {{gameCoreService.teams[gameCoreService.active_team_index].name}}
+            maten pulsado para empezar
+        </div>
+    </div>
+}@else if(gameCoreService.game_state == "words"){
+    <div class="bg-purple-950 flex-col p-2 h-screen w-screen text-white text-4xl text-center" (click)="gameCoreService.get_next_word()">
+        <div class="h-1/6">
+            {{gameCoreService.time_per_round - gameCoreService.time}}
+        </div>
+    
+        <div class="h-5/6 flex flex-col justify-center">
+            <div class="">
+                {{gameCoreService.active_word}}
+            </div>
+        </div>
+    </div>
+
+}
+@else if (gameCoreService.game_state == "podium") {
+    <div class="bg-purple-950 flex-col p-2 h-screen w-screen text-white text-4xl text-center" (click)="gameCoreService.get_next_word()">
+        podium
+    </div>
+}@else {
+    rompite el juego papito
+}

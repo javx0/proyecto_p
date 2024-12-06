@@ -8,15 +8,24 @@ import { Router } from '@angular/router';
 })
 export class GameCoreService {
 
+  game_state = "rules"    //rules, teams, word, podium
+
+  rules = [
+    "describir la palabra",
+    "una sola palabra",
+    "mimica",
+  ]
+
   rounds:number = 3
-  time_per_round:number = 60
+  time_per_round:number = 10
   words_per_round:number = 5
   teams:Team[] = []
   words_avaliable:string[] = []
 
   active_word:string = "placeholder"
   active_team_index:number = 0
-  game_state:string = ""    //playing, stopped
+
+  current_round = 0
 
   colectionService = inject(ColectionService)
   teamService = inject(TeamsService)
@@ -25,15 +34,15 @@ export class GameCoreService {
   initialice_game(){
     this.teams = this.teamService.get_active_teams()
     this.words_avaliable = this.colectionService.get_word_list_from_selected_colections(this.teams.length * this.words_per_round)
-    this.initialice_round()
-
-    this.start_timer()
+    this.initialice_random_words_for_teams()
     
     this.router.navigate(["/play"])
+    this.game_state = "rules"
   }
 
-  initialice_round(){
+  //Herramientas
 
+  initialice_random_words_for_teams(){   //Dar lista de palabras aleatorias a todos los equipos
     let word_list = [...this.words_avaliable]
 
     this.teams.forEach(team => {
@@ -50,33 +59,98 @@ export class GameCoreService {
     this.active_team_index = 0
   }
 
+  get_next_avaliable_team_index(){
 
-  delete_active_word_and_get_next_word(){
+    let current_team_trying_index = this.active_team_index + 1
+
+    for(let i=0; this.teams.length > i; i++){
+      console.log("buscando equipo");
+      
+      if(current_team_trying_index > this.teams.length -1){
+        current_team_trying_index = 0
+      }
+
+      if(this.teams[current_team_trying_index].word_list_active_round.length > 0){
+        return current_team_trying_index
+      }
+    }
+
+    return -1
+  }
+
+  get_next_word(){
+    this.remove_word_from_active_team()
+
     let active_team = this.teams[this.active_team_index]
-    active_team.word_list_active_round.splice(active_team.word_list_active_round.indexOf(this.active_word),1)
+    let active_team_word_list = active_team.word_list_active_round
 
-    if(active_team.word_list_active_round.length){
-      this.next_word()
+    if(active_team_word_list.length){
+      this.get_random_word_from_active_team()
     }else{
       this.stop_timer()
-      active_team.time_spent = this.time
+      active_team.time_spent = active_team.time_spent + this.time
+
+      let next_team_index = this.get_next_avaliable_team_index()
+      if(next_team_index != -1){
+        this.active_team_index = next_team_index
+        this.game_state = "teams"
+
+      }else{
+        this.current_round = this.current_round + 1
+
+        if (this.current_round < this.rounds){
+          this.game_state = "rules"
+        }else{
+          this.game_state = "podium"
+          console.log(JSON.stringify(this.teams));
+          
+        }
+
+      }
     }
   }
 
-  next_word(){
-    let word_list = this.teams[this.active_team_index].word_list_active_round
-    this.active_word = this.get_random_word_from_list(word_list)
-    
-  }
-
+  
   get_random_word_from_list(word_list:string[]){
     let random_index = Math.floor(Math.random() * word_list.length);
     
     return word_list[random_index]
   }
+  
+  remove_word_from_active_team(){
+    let active_team = this.teams[this.active_team_index]
+    let active_team_word_list = active_team.word_list_active_round
+    
+    active_team_word_list.splice(active_team_word_list.indexOf(this.active_word),1)
+  }
+
+  get_random_word_from_active_team(){
+    let active_team = this.teams[this.active_team_index]
+    let active_team_word_list = active_team.word_list_active_round
+
+    this.active_word = this.get_random_word_from_list(active_team_word_list)
+  }
 
 
+  // FUNCIONES CAMBIOS DE FASE
 
+  change_phase_rules_to_teams(){
+    this.active_team_index = 0
+    this.game_state = "teams"
+    this.initialice_random_words_for_teams()
+    console.log("cambiando de reglas a teams");
+    
+  }
+  
+  change_phase_teams_to_words(){
+    this.get_random_word_from_active_team()
+    this.game_state = "words"
+    this.start_timer()
+    console.log("cambiando de teams a words");
+    
+  }
+
+  // FUNCIONES PARA EL TIMER_____________________________________________________________________________________
   time: number = 0;        // Tiempo en segundos
   interval: any;            // Variable para almacenar la referencia del setInterval
 
@@ -87,8 +161,18 @@ export class GameCoreService {
   }
 
   start_timer(): void {
+    this.time = 0
     this.interval = setInterval(() => {
       this.time++;
+      if(this.time >= this.time_per_round){
+        this.stop_timer()
+        console.log("a");
+        
+        this.teams[this.active_team_index].time_spent = this.teams[this.active_team_index].time_spent + this.time_per_round
+        this.active_team_index = this.get_next_avaliable_team_index()
+
+        this.game_state = "teams"
+      }
     }, 1000);
   }
 
