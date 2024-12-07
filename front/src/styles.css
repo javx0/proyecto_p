@@ -7,3 +7,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 *{
     box-sizing: border-box;
 }
+
+.animated_background{
+    background-image: url('../public/animated_background.gif');
+    background-size: 300px 300px;
+    background-repeat: repeat;     
+}

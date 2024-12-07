@@ -1,4 +1,4 @@
-<div class="flex w-screen h-screen bg-purple-950 p-2">
+<div class="animated_background flex w-screen h-screen bg-purple-950 p-2">
 
     <div class="w-1/4 border-2 border-gray-900 bg-purple-900 flex flex-col justify-center">
 
@@ -9,12 +9,12 @@
         </div>
 
         <div class="h-5/6 w-full bg-purple-900 flex-col overflow-auto">
-            <div class="bg-green-700 text-white text-4xl p-4 text-center cursor-pointer hover:bg-green-600" (click)="teamsService.add_team()">
+            <div class="bg-green-700 text-white text-4xl p-4 text-center cursor-pointer border-b-green-900 border-b-2 hover:bg-green-600" (click)="teamsService.add_team()">
                 +
             </div>
             @for (team of teamsService.teams_avaliable; track $index) {
 
-                <div class="w-full p-3 text-2xl text-center" [ngClass]="{'bg-gray-500': team.is_selected, 'bg-gray-600': !team.is_selected, 'text-white': team.is_selected, 'text-gray-400': !team.is_selected}" (click)="team.is_selected = !team.is_selected;" (mousedown)="onMouseDownTeams($index)" (mouseup)="onMouseUp()" (mouseleave)="onMouseUp()">
+                <div class="w-full p-3 text-2xl text-center cursor-pointer border-b border-gray-700" [ngClass]="{'bg-gray-500': team.is_selected, 'bg-gray-600': !team.is_selected, 'text-white': team.is_selected, 'text-gray-400': !team.is_selected}" (click)="team.is_selected = !team.is_selected;" (mousedown)="onMouseDownTeams($index)" (mouseup)="onMouseUp()" (mouseleave)="onMouseUp()">
                     {{team.name}}
                 </div>
             }
@@ -27,15 +27,15 @@
         <div class="w-full h-3/4 border-2 border-gray-900 bg-purple-900 flex flex-col overflow-auto p-2">
             <div class="text-4xl mt-2 text-center text-white">Colecciones</div>
             <div class="flex w-full p-4 gap-4 justify-around flex-wrap">
-                <div class="h-52 w-60 bg-green-700 flex flex-col justify-center" (click)="colectionService.add_colection()">
+                <div class="h-52 w-60 bg-green-700 cursor-pointer hover:bg-green-600 border-green-500 border-2 rounded-sm flex flex-col justify-center" (click)="colectionService.add_colection()">
                     <div class="w-full text-center text-white text-4xl">
                         +
                     </div>
                 </div>
 
                 @for (colection of colectionService.colections_avaliable; track $index) {
-                    <div class="h-52 w-60 flex flex-col justify-center" [ngClass]="{'bg-gray-500': colection.is_selected, 'bg-gray-600': !colection.is_selected, 'text-white': colection.is_selected, 'text-gray-400': !colection.is_selected}" (click)="colection.is_selected = !colection.is_selected;" (mousedown)="onMouseDownColections($index)" (mouseup)="onMouseUp()" (mouseleave)="onMouseUp()">
-                        <div class="w-full text-center text-white text-4xl">
+                    <div class="h-52 w-60 flex flex-col justify-center border-2 border-gray-700 rounded-sm cursor-pointer" [ngClass]="{'bg-gray-500': colection.is_selected, 'bg-gray-600': !colection.is_selected, 'text-white': colection.is_selected, 'text-gray-400': !colection.is_selected}" (click)="colection.is_selected = !colection.is_selected;" (mousedown)="onMouseDownColections($index)" (mouseup)="onMouseUp()" (mouseleave)="onMouseUp()">
+                        <div class="w-full text-center text-white text-4xl break-words">
                             {{colection.name}}
                         </div>
                     </div>
@@ -47,26 +47,26 @@
             <div class="w-1/4 flex flex-col justify-around p-4">
                 <div class="text-center text-4xl text-white">Rondas</div>
                 <div class="flex justify-center">
-                    <input disabled="True" type="number" class="p-1 w-1/3" placeholder="Rondas" [(ngModel)]="gameCoreService.rounds">
+                    <input type="number" min="1" max="5" class="p-1 w-1/3" placeholder="Rondas" [(ngModel)]="gameCoreService.rounds">
                 </div>
             </div>
 
             <div class="w-1/4 flex flex-col justify-around p-4">
                 <div class="text-center text-4xl text-white">Tiempo</div>
                 <div class="flex justify-center">
-                    <input type="number" class="p-1 w-1/3" placeholder="Rondas" [(ngModel)]="gameCoreService.time_per_round">
+                    <input type="number" min="5" class="p-1 w-1/3" placeholder="Rondas" [(ngModel)]="gameCoreService.time_per_round">
                 </div>
             </div>
 
             <div class="w-1/4 flex flex-col justify-around p-4">
                 <div class="text-center text-4xl text-white">palabras</div>
                 <div class="flex justify-center">
-                    <input type="number" class="p-1 w-1/3" placeholder="Rondas" [(ngModel)]="gameCoreService.words_per_round">
+                    <input type="number" min="1" class="p-1 w-1/3" placeholder="Rondas" [(ngModel)]="gameCoreService.words_per_round">
                 </div>
             </div>
             
             <div class="w-1/4 flex flex-col justify-center">
-                <div class="text-4xl text-white px-4 py-2 rounded-md bg-green-700 m-auto" (click)="gameCoreService.initialice_game()">
+                <div class="text-4xl text-white px-4 py-2 rounded-md bg-green-700 cursor-pointer hover:bg-green-600 m-auto" (click)="gameCoreService.initialice_game()">
                     jugar
                 </div>
             </div>

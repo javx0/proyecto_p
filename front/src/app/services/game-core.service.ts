@@ -2,11 +2,14 @@ import { inject, Injectable } from '@angular/core';
 import { ColectionService } from './colection_service/colection.service';
 import { TeamsService } from './teams.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameCoreService {
+
+  snackBar = inject(MatSnackBar);
 
   game_state = "rules"    //rules, teams, word, podium
 
@@ -32,12 +35,26 @@ export class GameCoreService {
   router = inject(Router)
 
   initialice_game(){
-    this.teams = this.teamService.get_active_teams()
-    this.words_avaliable = this.colectionService.get_word_list_from_selected_colections(this.teams.length * this.words_per_round)
-    this.initialice_random_words_for_teams()
-    
-    this.router.navigate(["/play"])
-    this.game_state = "rules"
+    try{
+      this.teams = this.teamService.get_active_teams()
+
+      if(this.teams.length < 2){
+        throw "Se necesitan al menos 2 equipos para poder jugar"
+      }
+
+      this.words_avaliable = this.colectionService.get_word_list_from_selected_colections(this.teams.length * this.words_per_round)
+      this.initialice_random_words_for_teams()
+      
+      this.router.navigate(["/play"])
+      this.game_state = "rules"
+    }
+    catch(error){
+      this.snackBar.open(String(error), "", {
+        horizontalPosition: "center",
+        verticalPosition: "bottom",
+        duration: 5000
+      });
+    }
   }
 
   //Herramientas

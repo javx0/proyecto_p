@@ -1,12 +1,12 @@
-<div class="w-screen, h-screen bg-purple-950 p-2 gap-2 flex flex-col">
+<div class="animated_background w-screen, h-screen bg-purple-950 p-2 gap-2 flex flex-col">
     <div class="w-full h-1/4  flex border-2 border-gray-900 bg-purple-900 p-2">
 
         <div class="w-[25%] h-full">
-            <mat-icon class="text-white text-6xl !w-auto !h-auto" routerLink="/game_configuration">arrow_back</mat-icon>
+            <mat-icon class="text-white text-6xl !w-auto !h-auto hover:text-gray-200 cursor-pointer" (click)="colectionService.save_colections_in_local_storage()" routerLink="/game_configuration">arrow_back</mat-icon>
         </div>
 
         <div class="flex flex-col justify-around w-2/4">
-            <div class="text-4xl text-white text-center">titulo</div>
+            <input type="text" class="text-4xl text-white text-center bg-purple-900" [(ngModel)]="colectionService.colection_beign_modified.name">
             <div class="flex justify-center">
                 <input class="rounded-s-md p-1" type="text" placeholder="Añade una palabra" [(ngModel)]="colectionService.word">
                 <button class="rounded-e-md bg-green-700 text-white text-4xl px-4 text-center cursor-pointer hover:bg-green-600" (click)="colectionService.add_word()">+</button>
@@ -14,26 +14,26 @@
         </div>
 
         <div class="w-1/4 h-full flex justify-end">
-            <mat-icon class="text-white text-6xl !w-auto !h-auto">download</mat-icon>
-            <mat-icon class="text-white text-6xl !w-auto !h-auto">upload</mat-icon>
+            <mat-icon class="text-white text-6xl !w-auto !h-auto hover:text-gray-200 cursor-pointer" cdkCopyToClipboard="{{colectionService.get_active_colection_words()}}" (click)="show_copy_colection_snackbar()">download</mat-icon>
+            <mat-icon class="text-white text-6xl !w-auto !h-auto hover:text-gray-200 cursor-pointer" (click)="modalService.open_upload_colection_words()">upload</mat-icon>
         </div>
     </div>
 
     <div class="w-full h-[60%] bg-purple-900 border-gray-900 border-2 p-2 overflow-auto">
         <div class=" flex flex-wrap justify-around gap-2 ">
             @for (word of colectionService.colection_beign_modified.word_list; track $index) {
-                <div class="p-2 text-2xl bg-purple-800 border-gray-900 border-2 text-white h-12 hover:bg-red-500" (click)="colectionService.remove_word($index)">{{word}}</div>
+                <div class="p-2 text-2xl bg-purple-800 border-gray-900 border-2 text-white h-12 hover:bg-red-500 cursor-pointer" (click)="colectionService.remove_word($index)">{{word}}</div>
             }
         </div>
     </div>
 
     <div class="h-[15%] border-2 border-gray-900 bg-purple-900 p-2 flex w-full justify-end">
         <div class="h-full flex flex-col justify-center">
-            <div class="bg-red-700 text-white text-4xl rounded-md mr-2 p-2" (click)="colectionService.remove_colection_beign_modified()" routerLink="/game_configuration">Borrar</div>
+            <div class="bg-red-700 text-white text-4xl rounded-md mr-2 p-2 cursor-pointer hover:bg-red-500" (click)="colectionService.remove_colection_beign_modified()" routerLink="/game_configuration">Borrar</div>
         </div>
 
         <div class="h-full flex flex-col justify-center">
-            <div class="bg-green-700 text-white text-4xl rounded-md p-2" (click)="colectionService.save_colection_modified()" routerLink="/game_configuration">Guardar</div>
+            <div class="bg-blue-700 text-white text-4xl rounded-md p-2 cursor-pointer hover:bg-blue-600" (click)="colectionService.undo_active_colection_changes()">Deshacer cambios</div>
         </div>
     </div>
 </div>

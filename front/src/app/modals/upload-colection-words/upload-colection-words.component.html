@@ -1,0 +1,13 @@
+<div class="w-[50vw] flex flex-col bg-purple-900 p-4">
+    <div class="text-white text-3xl w-full text-center mb-1">Importar palabras desde otra colección</div>
+    <div class="text-white text-base w-full text-center mb-4">No se borrará ninguna palabra, solo se añadirán palabras nuevas</div>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Palabras que importar</mat-label>
+        <textarea rows="5" matInput placeholder="lista de palabras..." [(ngModel)]="colectionService.words_to_append_to_active_colection"></textarea>
+    </mat-form-field>
+
+    <div class="w-full flex justify-around">
+        <button mat-dialog-close class="bg-green-700 text-white text-3xl rounded-md p-2 cursor-pointer hover:bg-green-600" (click)="colectionService.append_words_active_collection()">Añadir palabras</button>
+    </div>
+</div>
