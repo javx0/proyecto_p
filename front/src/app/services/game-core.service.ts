@@ -11,7 +11,7 @@ export class GameCoreService {
 
   snackBar = inject(MatSnackBar);
 
-  game_state = "rules"    //rules, teams, word, podium
+  game_state = "podium"    //rules, teams, word, podium
 
   rules = [
     "describir la palabra",
@@ -58,6 +58,12 @@ export class GameCoreService {
   }
 
   //Herramientas
+
+  order_teams_by_time_spent(){
+    this.teams.sort((team1, team2) => {
+      return team2.time_spent - team1.time_spent
+    })
+  }
 
   initialice_random_words_for_teams(){   //Dar lista de palabras aleatorias a todos los equipos
     let word_list = [...this.words_avaliable]
@@ -118,9 +124,8 @@ export class GameCoreService {
         if (this.current_round < this.rounds){
           this.game_state = "rules"
         }else{
+          this.order_teams_by_time_spent()
           this.game_state = "podium"
-          console.log(JSON.stringify(this.teams));
-          
         }
 
       }

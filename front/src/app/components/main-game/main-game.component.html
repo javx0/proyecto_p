@@ -65,10 +65,23 @@
 
 }
 @else if (gameCoreService.game_state == "podium") {
-    <div class="animated_background bg-purple-950 flex-col p-2 h-screen w-screen text-white text-4xl text-center" (click)="gameCoreService.get_next_word()">
-        Puestos:
+    <div class="animated_background bg-purple-950 flex-col p-2 h-screen w-screen text-white text-4xl text-center flex justify-center" (click)="gameCoreService.get_next_word()">
 
-        <
+        <div class="flex justify-center h-5/6">
+            <div class="bg-purple-900 border-purple-800 border-2 p-4 rounded-md h-full">
+                <div class="mb-2 h-1/5">
+                    Puntuaciones:
+                </div>
+
+                <div class="mb-2 h-4/5 overflow-y-auto grid grid-cols-2">
+                    @for (team of gameCoreService.teams; track $index) {
+                        <div>{{team.name}}</div>
+                        <div >{{team.time_spent}}</div>
+                    }
+                </div>
+                
+            </div>
+        </div>
 
     </div>
 }@else {
