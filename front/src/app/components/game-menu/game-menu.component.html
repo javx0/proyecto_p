@@ -47,27 +47,29 @@
             <div class="w-1/4 flex flex-col justify-around p-4">
                 <div class="text-center text-4xl text-white">Rondas</div>
                 <div class="flex justify-center">
-                    <input type="number" min="1" max="5" class="p-1 w-1/3" placeholder="Rondas" [(ngModel)]="gameCoreService.rounds">
+                    <input type="number" min="1" max="5" class="p-1 ml-2 text-black rounded-md text-center w-16 text-4xl" placeholder="Rondas" [(ngModel)]="gameCoreService.rounds">
                 </div>
             </div>
 
             <div class="w-1/4 flex flex-col justify-around p-4">
                 <div class="text-center text-4xl text-white">Tiempo</div>
                 <div class="flex justify-center">
-                    <input type="number" min="5" class="p-1 w-1/3" placeholder="Rondas" [(ngModel)]="gameCoreService.time_per_round">
+                    <input type="number" min="5" class="p-1 ml-2 text-black rounded-md text-center w-16 text-4xl" placeholder="Rondas" [(ngModel)]="gameCoreService.time_per_round">
                 </div>
             </div>
 
             <div class="w-1/4 flex flex-col justify-around p-4">
                 <div class="text-center text-4xl text-white">palabras</div>
                 <div class="flex justify-center">
-                    <input type="number" min="1" class="p-1 w-1/3" placeholder="Rondas" [(ngModel)]="gameCoreService.words_per_round">
+                    <input type="number" min="1" class="p-1 ml-2 text-black rounded-md text-center w-16 text-4xl" placeholder="Rondas" [(ngModel)]="gameCoreService.words_per_round">
                 </div>
             </div>
             
             <div class="w-1/4 flex flex-col justify-center">
-                <div class="text-4xl text-white px-4 py-2 rounded-md bg-green-700 cursor-pointer hover:bg-green-600 m-auto" (click)="gameCoreService.initialice_game()">
-                    jugar
+                <div class="flex flex-col justify-center text-6xl text-white px-4 py-2 border-green-500 border-2 rounded-md bg-green-700 cursor-pointer hover:bg-green-600 m-auto w-full text-center h-2/3" (click)="gameCoreService.initialice_game()">
+                    <div class="my-auto">
+                        jugar
+                    </div>
                 </div>
             </div>
         </div>

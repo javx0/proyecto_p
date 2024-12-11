@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { ModalsService } from '../../services/modals.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -10,5 +11,6 @@ import { RouterModule } from '@angular/router';
   styleUrl: './main-menu.component.css'
 })
 export class MainMenuComponent {
-
+  modalsService = inject(ModalsService)
+  
 }

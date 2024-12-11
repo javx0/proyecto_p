@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-collection-editor',
   standalone: true,
-  imports: [FormsModule, MatIconModule, RouterModule, ClipboardModule, ClipboardModule],
+  imports: [FormsModule, MatIconModule, RouterModule, ClipboardModule],
   templateUrl: './collection-editor.component.html',
   styleUrl: './collection-editor.component.css'
 })

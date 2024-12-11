@@ -1,0 +1,65 @@
+<div class="flex flex-col w-[70vw] h-[70vw] overflow-auto bg-purple-900 text-white text-3xl">
+
+    <div class="text-center text-white text-4xl p-2 mb-8 flex">
+        <div class="w-1/4 h-full text-left">
+            <mat-icon mat-dialog-close class="text-white text-6xl !w-auto !h-auto hover:text-gray-200 cursor-pointer">arrow_back</mat-icon>
+        </div>
+        <div class="w-2/4">
+            Configuración
+        </div>
+        <div class="w-1/4 h-full flex justify-end">
+            <mat-icon class="text-white text-6xl !w-auto !h-auto hover:text-gray-200 cursor-pointer" cdkCopyToClipboard="{{settingsService.export_all_data()}}" (click)="show_copy_colection_snackbar()">upload</mat-icon>
+        </div>
+    </div>
+
+    <div class="bg-purple-950 flex flex-col p-4 mb-4">
+        <div class="flex w-full justify-center mb-4">
+            <div>
+                Rondas por defecto
+            </div>
+            <input class="ml-2 text-black rounded-md text-center w-20" type="number" min="1" max="5" [(ngModel)]="settingsService.default_settings.default_rounds">
+        </div>
+    
+        <div class="flex w-full justify-center mb-4">
+            <div>
+                Tiempo por ronda por defecto
+            </div>
+            <input class="ml-2 text-black rounded-md text-center w-20" type="number" min="5" [(ngModel)]="settingsService.default_settings.default_time_per_round">
+        </div>
+    
+        <div class="flex w-full justify-center mb-4">
+            <div>
+                Palabras por ronda por defecto
+            </div>
+            <input class="ml-2 text-black rounded-md text-center w-20" type="number" min="1" [(ngModel)]="settingsService.default_settings.default_words_per_round">
+        </div>
+    </div>
+
+    <div class="w-full text-center">
+        Reglas de las rondas:
+    </div>
+
+    @for (round_rules of settingsService.default_settings.default_rules; track $index) {
+        <div class="flex w-full justify-center mb-4 p-4">
+            <div>
+                Ronda{{$index + 1}}:
+            </div>
+            <input class="ml-2 text-black rounded-md text-center w-full p-1" type="text" [(ngModel)]="settingsService.default_settings.default_rules[$index]">
+        </div>
+    }
+
+    <div class="bg-purple-950 flex flex-col p-4 mb-4">
+        <div class="flex w-full justify-center mb-4">
+            Importar todos los datos
+        </div>
+
+        <div class="flex w-full justify-center mb-4">
+            CUIDADO Este proceso sobreescribirá los equipos, colecciones y configuración
+        </div>
+
+        <textarea class="rounded-md p-2 text-black" rows="6" placeholder="Inserte aqui los datos a importar" [(ngModel)]="settingsService.all_data"></textarea>
+        <div class="flex justify-center">
+            <div class="bg-red-700 text-white text-4xl rounded-md mr-2 p-2 cursor-pointer hover:bg-red-500 mt-4" (click)="settingsService.import_all_data()">Importar</div>
+        </div>
+    </div>
+</div>

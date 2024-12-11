@@ -1,10 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { GameCoreService } from '../../services/game-core.service';
+import { MatIcon } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-main-game',
   standalone: true,
-  imports: [],
+  imports: [MatIcon, RouterModule],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })

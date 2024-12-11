@@ -11,12 +11,14 @@ export class GameCoreService {
 
   snackBar = inject(MatSnackBar);
 
-  game_state = "podium"    //rules, teams, word, podium
+  game_state = ""    //rules, teams, word, podium
 
   rules = [
     "describir la palabra",
     "una sola palabra",
     "mimica",
+    "sin reglas definidas :(",
+    "sin reglas definidas :("
   ]
 
   rounds:number = 3
@@ -61,7 +63,7 @@ export class GameCoreService {
 
   order_teams_by_time_spent(){
     this.teams.sort((team1, team2) => {
-      return team2.time_spent - team1.time_spent
+      return team1.time_spent - team2.time_spent
     })
   }
 
