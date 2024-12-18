@@ -1,0 +1,1 @@
+dame una lista de palabras en formato JSON: ["palabra1", "palabra2"], cada palabra debe de ser un animal diferente, dame 30 palabras
